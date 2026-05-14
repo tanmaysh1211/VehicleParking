@@ -314,7 +314,7 @@ def confirm_release(spot_id, user_id):
 def create_admin():
     if_exists = User.query.filter_by(is_admin=True).first()
     if not if_exists:
-        admin = User(email = 'sharma.tanmay4002@gmail.com',password = 'karan@0801', name = 'tanmay sharma', 
+        admin = User(email = 'sharma.tanmay*****@gmail.com',password = '********', name = 'tanmay sharma', 
                       address = 'gurgaon', pin_code = '122110', is_admin = True)
         db.session.add(admin)
         db.session.commit()
