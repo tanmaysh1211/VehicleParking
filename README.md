@@ -89,18 +89,6 @@ python app.py
 
 Visit: `http://127.0.0.1:5000`
 
----
-
-## 🔐 Default Admin Login
-
-| Field    | Value                          |
-|----------|-------------------------------|
-| Email    | sharma.tanmay4002@gmail.com   |
-| Password | karan@0801                    |
-
-> Admin account is auto-created on first run if none exists.
-
----
 
 ## 🧩 ER Model
 
