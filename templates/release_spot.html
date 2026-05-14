@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Release Parking Spot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      color: #00baff;
+      margin-bottom: 25px;
+    }
+
+    .info {
+      margin-bottom: 30px;
+    }
+
+    .info p {
+      margin: 12px 0;
+      font-size: 17px;
+      color: #e0f7ff;
+    }
+
+    .amount {
+      font-size: 22px;
+      font-weight: bold;
+      color: #00ffcc;
+      margin-top: 10px;
+    }
+
+    .note {
+      font-size: 15px;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      color: #cceeff;
+      line-height: 1.5;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .btn-cancel {
+      background-color: #f08080;
+      color: white;
+    }
+
+    .btn-cancel:hover {
+      background-color: #e06666;
+    }
+
+    .btn-pay {
+      background-color: #00baff;
+      color: white;
+    }
+
+    .btn-pay:hover {
+      background-color: #0094cc;
+    }
+
+    .button-row {
+      text-align: center;
+    }
+
+    .button-row form,
+    .button-row a {
+      display: inline-block;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Confirm Payment</h2>
+
+    <div class="info">
+      <p><strong>Parking Lot Name :</strong> {{ spot.lot.parking_lot_name }}</p>
+      <p><strong>Spot ID:</strong>  {{ spot.id }}</p>
+      <p><strong>Vehicle Number:</strong> {{ spot.vehicle_number}}</p>
+      <p><strong>Total Time Parked:</strong> {{ formatted_duration }}</p>
+      <p class="amount"><strong>Total Amount:</strong> ₹ {{ price }}</p>
+    </div>
+
+    <div class="note">
+      You are about to complete your payment and release the parking spot. <br>
+      Please ensure the above details are correct before proceeding.
+    </div>
+
+    <div class="button-row">
+      <a href="{{url_for('user_dashboard', user_id = user.id)}}" class="btn btn-cancel">Cancel</a>
+      <form action="{{url_for('confirm_release', user_id=user.id, spot_id=spot.id )}}" method="POST">
+        <button type="submit" class="btn btn-pay">Pay & Release</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+
+

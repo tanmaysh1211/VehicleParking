@@ -1,0 +1,92 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Parking Lot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00baff;
+      margin-bottom: 30px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    form input::placeholder, form textarea::placeholder {
+      color: #e0e0e0;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 10px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-add {
+      background-color: #00baff;
+      color: white;
+    }
+
+    .btn-cancel {
+      background-color: #f08080;
+      color: white;
+    }
+
+    .button-row {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Add New Parking Lot</h2>
+    <form action="/add_parking" method="POST">
+      <input type="text" name="lot_name" placeholder="Parking Lot Name" required>
+      <textarea name="address" placeholder="Address" required></textarea>
+      <input type="text" name="pin_code" placeholder="Pincode" required>
+      <input type="number" name="price" placeholder="Price per Hour" required>
+      <input type="number" name="capacity" placeholder="Total Capacity" required>
+      <input type="number" name="avilable_capacity" placeholder="Avilable Capacity" required>
+      
+      <div class="button-row">
+        <button type="submit" class="btn btn-add">Add</button>
+        <a href="/admin_dashboard" class="btn btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Parking Spot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #00baff;
+      margin-bottom: 30px;
+    }
+
+    .info {
+      margin-bottom: 30px;
+    }
+
+    .info p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #e0f7ff;
+    }
+
+    form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+    }
+
+    form input::placeholder {
+      color: #e0e0e0;
+    }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 10px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-reserve {
+      background-color: #00baff;
+      color: white;
+    }
+
+    .btn-cancel {
+      background-color: #f08080;
+      color: white;
+    }
+
+    .button-row {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Book Parking Spot</h2>
+
+    <div class="info">
+      <p><strong>Parking Lot Name :</strong> {{ lot.parking_lot_name }}</p>
+      <p><strong>Lot ID:</strong> {{lot.id}}</p>
+    </div>
+
+    {% if error %}
+    <div style="background:#f08080; padding:10px; border-radius:6px; 
+                  margin-bottom:15px; color:white; font-weight:bold; text-align:center;">
+      ⚠️ {{ error }}
+    </div>
+    {% endif %}
+
+
+    <form action="{{url_for('book_spot',lot_id = lot.id,user_id = user.id)}}" method="POST">
+      <input type="text" name="vehicle_number" placeholder="e.g. GJ06CD5678" autocomplete="off" autocorrect="off"
+        spellcheck="false" required>
+      <input type="text" name="booking_time" id="booking_time" placeholder="Booking Time" readonly>
+
+      <div class="button-row">
+        <a href="{{url_for('user_dashboard',user_id =user.id )}}" class="btn btn-cancel">Cancel</a>
+        <button type="submit" class="btn btn-reserve">Reserve</button>
+
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const now = new Date();
+    const formatted = now.toLocaleString();
+    document.getElementById("booking_time").value = formatted;
+  </script>
+</body>
+</html>
+
+

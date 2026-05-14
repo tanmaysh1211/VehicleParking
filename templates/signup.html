@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Parking - Sign Up</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body, html {
+      height: 100%;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .wrapper {
+      width: 90%;
+      height: 90vh;
+      display: flex;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .left-panel {
+      width: 40%;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .right-panel {
+      width: 60%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    .right-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .right-panel-content {
+      position: relative;
+      z-index: 2;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+    form input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+    form input::placeholder {
+      color: #e0e0e0;
+    }
+    form input[type="submit"] {
+      background: #0066cc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .tagline {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 1.1rem;
+      max-width: 500px;
+    }
+    .login-link {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .login-link a {
+      text-decoration: none;
+      color: #00baff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="left-panel">
+      <h2>Create Account</h2>
+      <form action="/signup" method="POST">
+        <input type="text" placeholder="Full Name"  name ="name" required>
+        <input type="email" placeholder="Email ID" name = "email" required>
+        <input type="password" placeholder="Password" name = "password" required>
+        <input type="text" placeholder="Address" name="address" required>
+         <input type="text" placeholder="Pincode" name = "pin_code" required>
+        <input type="submit" value="Register">
+      </form>
+      <div class="login-link">
+        Already have an account? <a href="/landing_page" >Login here</a>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="right-panel-content">
+        <div class="tagline">Smart Parking, Made Simple</div>
+        <div class="description">
+          Say goodbye to circling around. Book your spot instantly, manage your vehicle details, and enjoy a smoother parking experience with our intelligent system.
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+

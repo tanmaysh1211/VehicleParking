@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard - Vehicle Parking</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+    }
+    .sidebar {
+      width: 320px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .sidebar .user-info {
+      margin-bottom: 20px;
+    }
+    .sidebar .user-info h2 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .sidebar .user-info p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 2px 0;
+    }
+    .sidebar a {
+      display: block;
+      margin: 10px 0;
+      color: #00baff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .main-content {
+      flex: 1;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 40px;
+      color: #fff;
+    }
+    .section {
+      margin-bottom: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+    h3 {
+      margin-bottom: 15px;
+      color: #00baff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #fff;
+    }
+    th {
+      background: rgba(0, 186, 255, 0.2);
+      border: 1.5px solid #ccc;
+      padding: 15px;
+      text-align: center;
+    }
+    table , table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-release {
+      background-color: #f08080;
+      color: white;
+    }
+    .btn-veiwbill {
+      background-color: #00baff;
+      color: white;
+    }
+    .btn-out {
+      background-color: #90ee90;
+      color: #000;
+    }
+    .btn-book {
+      background-color: #00baff;
+      color: white;
+    }
+    .btn-search {
+      background-color: #00baff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .search-box {
+      margin-bottom: 20px;
+    }
+    .search-box input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      border-radius: 6px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="user-info">
+      <h1> {{ user.name}}</h1>
+      <br>
+      <p><strong>Address:</strong> {{ user.address }}</p>
+      <br>
+      <p><strong>Pincode:</strong> {{ user.pin_code}}</p>
+    </div>
+    
+    <a href="{{url_for('user_summary',user_id = user.id)}}">Summary</a>
+    <a href="{{ url_for ('edit_profile', user_id=user.id) }}">Edit Profile</a>
+    <a href="/landing_page">Logout</a>
+  </div>
+  <div class="main-content">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div style="background:#f08080; padding:10px; border-radius:6px; margin-bottom:15px; color:white; font-weight:bold;">
+        ⚠️ {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    <div class="section">
+
+     <h3>Recent Parking History</h3>
+         <table>
+           <tr>
+              <th>Paking Spot id </th>
+               <th>Vehicle No</th>
+               <th>Date</th>
+               <th>Booking time</th>
+               <th>Total Time </th>
+               <th> Total Price</th>
+               <th>Action</th>
+           </tr>
+      {% for h in histirys %}
+         {% if h.end_time is none %}                    
+             <tr>
+                <td>{{ h.spot_id }}</td>
+                <td>{{ h.vehicle_number}}</td>
+                <td>{{ h.start_time.strftime('%d %b %Y') }}</td>
+                <td>{{ h.start_time.strftime('%I:%M %p') }}</td>
+
+                <td> - </td>
+                <td> - </td>
+                <td>
+                   <a href="{{ url_for('release_preview', user_id=h.user_id, spot_id=h.spot_id) }}" class="btn btn-release">
+                    Release
+                   </a>
+                </td>
+                </tr>
+            
+          {% else %}
+            <tr>
+              <td>{{ h.spot_id }}</td>
+              <td>{{ h.vehicle_number }}</td>
+              <td>{{ h.start_time.strftime('%d %b %Y') }}</td>
+              <td>{{ h.start_time.strftime('%I:%M %p') }}</td>
+              <td>{{ h.total_time }}</td>
+              <td>₹{{ h.total_price }}</td>
+              <td><a href="{{ url_for('invoice', history_id=h.id, user_id=h.user_id) }}" class="btn btn-veiwbill">View Invoice</a>
+              </td>
+            </tr>
+          {% endif %}
+          
+        {% endfor %}
+
+           
+
+      </table>
+
+       
+  
+    </div>
+     
+    <div class="section">
+      <h3>Search Parking Near You</h3>
+      <div class="search-box">
+        <form action="{{ url_for('user_dashboard', user_id=user.id) }}"  method="POST">
+          <input type="text" name="pincode" placeholder="Enter Pincode or Address"  required>
+          <input type="submit" value="search" class="btn-search"  >
+        </form>
+      </div>
+      {% if search_results %}
+  <div class="section">
+    <h3>Search Results</h3>
+    <table>
+      <tr>
+        <th>Lot Name</th>
+        <th>Address</th>
+        <th>Price per Hour</th>
+        <th>Available Capacity</th>
+        <th>Action</th>
+      </tr>
+      {% for lot in search_results %}
+        <tr>
+          <td>{{ lot.parking_lot_name }}</td>
+          <td>{{ lot.address }}</td>
+          <td>{{ lot.price_per_hour }}</td>
+          <td>{{ lot.avilable_capacity }}</td>
+          <td><a href="{{url_for('book_spot',user_id = user.id, lot_id = lot.id )}}" class="btn btn-book">Book Now</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+      {% else %}
+        <p>No results found.</p>
+      {% endif %}
+  </div>
+  <div class="section">
+    <h3>Available Parking Lots</h3>
+    <table>
+      <tr>
+        <th>Lot Name</th>
+        <th>Address</th>
+        <th>Price per Hour</th>
+        <th>Available Capacity</th>
+        <th>Action</th>
+      </tr>
+      {% for lot in parking_lots %}
+        <tr>
+          <td>{{ lot.parking_lot_name }}</td>
+          <td>{{ lot.address }}</td>
+          <td>{{ lot.price_per_hour }}</td>
+          <td>{{ lot.avilable_capacity }}</td>
+          <td><a href="{{url_for('book_spot',user_id = user.id, lot_id = lot.id )}}" class="btn btn-book">Book Now</a></td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+
+
+
+
+  
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin Summary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            padding: 40px;
+        }
+
+        h1, h2 {
+            color: #00baff;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 186, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        a {
+            color: #00baff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parking Lots Summary</h1>
+
+    <div class="section">
+        <h2>Occupied vs Free Spots</h2>
+        <img src="data:image/png;base64,{{ occupied_free_chart }}" alt="Occupied vs Free Spots Chart" />
+    </div>
+
+    <div class="section">
+        <h2>Total Income per Parking Lot</h2>
+        <img src="data:image/png;base64,{{ income_chart }}" alt="Total Income Chart" />
+    </div>
+
+    <p class="back-link"><a href="{{ url_for('admin_dashboard') }}">&larr; Back to Admin Dashboard</a></p>
+</body>
+</html>
+
+
+

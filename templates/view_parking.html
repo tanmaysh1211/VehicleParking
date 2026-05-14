@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Parking Lot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    h2, h3 {
+      color: #00baff;
+      margin-bottom: 15px;
+    }
+    .lot-details p {
+      margin: 5px 0;
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      margin: 20px 0;
+    }
+    .btn-delete { background-color: #f08080; }
+    .spot-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .spot-table th, .spot-table td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    .spot-table th {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .occupied-row {
+      background-color: rgba(255, 0, 0, 0.1);
+    }
+    .available-row {
+      background-color: rgba(0, 255, 0, 0.1);
+    }
+    .btn-back {
+      background-color: #00baff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Parking Lot - Dadar East</h2>
+    <div class="lot-details">
+      <p><strong>Address:</strong>{{ lot.address }}</p>
+      <p><strong>Total Spots:</strong> {{ lot.total_capacity }}</p>
+      <p><strong>Available:</strong> {{ lot.avilable_capacity }}</p>
+      <form action="{{ url_for('delete_lot', lot_id=lot.id) }}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-delete">Delete</button>
+      </form>
+      <a href="{{ url_for('admin_dashboard') }}"  class="btn btn-back">← Back to Dashboard</a>
+    </div>
+
+    <h3>Spot Details</h3>
+    <table class="spot-table">
+      <thead>
+        <tr>
+          <th>Spot ID</th>
+          <th>Status</th>
+          <th>Occupied By</th>
+          <th>Costomber ID</th>
+          <th>Vehicle number</th>
+        </tr>
+      </thead>
+      {% for spot in spots %}
+            {% if spot.is_occupied %}
+              <tr class="occupied-row">
+                <td>{{ spot.spot_number }}</td>
+                <td>Occupied</td>
+                <td>{{ spot.user.name }}</td>
+                <td>{{ spot.user.id }}</td>
+                <td>{{ spot.vehicle_number}}</td>
+              </tr>
+            {% else %}
+                <tr class="available-row">
+                  <td>{{ spot.spot_number }}</td>
+                  <td>Available</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>-</td>
+                </tr>
+            {% endif %}
+      {% endfor %}     
+    </table>
+ 
+  </div>
+</body>
+</html>

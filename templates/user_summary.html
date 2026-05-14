@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head><title>User Weekly Summary</title></head>
+<body style="background:#1b2735; color:white; font-family:sans-serif; padding:40px;">
+  <h2>Hello {{ user.name }} </h2>
+  <h3>Weekly Parking Spend</h3>
+  <img src="data:image/png;base64,{{ chart }}" style="max-width:100%; border-radius:10px;" />
+  <p><a href="{{ url_for('user_dashboard', user_id=user.id) }}" style="color:#00baff;">&larr; Back to Dashboard</a></p>
+</body>
+</html>
+
